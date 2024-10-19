@@ -27,7 +27,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'client/build')));
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'client', 'index.html'));
 });
 app.use(cookieParser());
 
@@ -36,5 +36,8 @@ app.use("/api", subjectRoutes);
 app.use("/api", counselingRoutes);
 app.use("/api", classroomRoutes);
 app.use("/api", registerRoutes);
-
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
 export default app;
