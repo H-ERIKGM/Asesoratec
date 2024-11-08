@@ -20,12 +20,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://d2y50145hp55kq.cloudfront.net',
+}));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'client')));
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, './client/dist', 'index.html'));
+    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 });
 app.use(cookieParser());
 
