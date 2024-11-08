@@ -1,6 +1,6 @@
 import axios from './axios'
 
-const API = 'http://localhost:4000/api'
+const API = 'https://54.144.78.59:4000/api'
 
 export const registerRequest = (user) => axios.post(`${API}/register`, user);
 
