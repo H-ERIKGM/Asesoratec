@@ -20,14 +20,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const app = express();
 
-app.use(cors({
-    origin: 'http://localhost:5173',
-}));
+app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'client')));
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'index2.html'));
+    res.sendFile(path.join(__dirname, './client/dist', 'index.html'));
 });
 app.use(cookieParser());
 

@@ -1,6 +1,8 @@
 import User from '../models/user.model.js'
 import bcrypt from 'bcryptjs'
 import {createAccessToken} from '../libs/jwt.js';
+import jwt from 'jsonwebtoken'
+import { TOKEN_SECRET } from '../config.js';
 
 export const register = async (req, res) => {
     const {email, password, name, last_name, phone, role} = req.body;
@@ -45,7 +47,7 @@ export const login = async (req, res) => {
         if(!passMatch) return res.status(400).json({message:"Wrong password"});
         
         const token = await createAccessToken({id: userFound._id});
-        res.cookie('token', token)        
+        res.cookie('token', token)
         res.json({
             id: userFound._id,
             name: userFound.name,
@@ -92,3 +94,22 @@ export const updateUser = async (req, res) => {
     if(!user) return res.status(404).json({message: 'Subject not found'})
     res.json(user)
 };
+
+export const verifyToken = async (req, res) => {
+    const {token} = req.cookies
+
+    if(!token) return res.status(401).json({message: "Unauthorized"});
+    
+    jwt.verify(token, TOKEN_SECRET, async (err, user) => {
+        if(err) return res.status(401).json({message: "Unauthorized"});
+
+        const userFound = await User.findById(user.id);
+        if(!userFound) return res.status(401).json({message: "Unauthorized"});
+
+        return res.json({
+            id: userFound._id,
+            username: userFound.username,
+            email: userFound.email,
+        })
+    })
+}
