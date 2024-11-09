@@ -21,12 +21,12 @@ const __dirname = dirname(__filename);
 const app = express();
 
 app.use(cors({
-    origin: ['https://d2y50145hp55kq.cloudfront.net', 'http://localhost:443'],
+    origin: ['https://d2y50145hp55kq.cloudfront.net', 'http://localhost:4000'],
     credentials: true
 }));
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'client')));
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 });
