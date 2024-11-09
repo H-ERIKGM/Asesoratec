@@ -21,7 +21,8 @@ const __dirname = dirname(__filename);
 const app = express();
 
 app.use(cors({
-    origin: 'http://d2y50145hp55kq.cloudfront.net',
+    origin: ['https://d2y50145hp55kq.cloudfront.net', 'http://localhost:443'],
+    credentials: true
 }));
 app.use(morgan('dev'));
 app.use(express.json());
