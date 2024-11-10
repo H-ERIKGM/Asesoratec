@@ -21,7 +21,7 @@ const __dirname = dirname(__filename);
 const app = express();
 
 app.use(cors({
-    origin: ['http://asesoratec.s3-website.us-east-2.amazonaws.com', 'https://d2y50145hp55kq.cloudfront.net'],
+    origin: ['https://asesoratec.s3-website.us-east-2.amazonaws.com', 'https://d2y50145hp55kq.cloudfront.net'],
     credentials: true
 }));
 app.use(morgan('dev'));
