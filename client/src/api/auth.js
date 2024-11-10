@@ -1,6 +1,6 @@
 import axios from './axios'
 
-const API = 'https://18.212.31.252:4000/api'
+const API = 'http://ec2-18-212-31-252.compute-1.amazonaws.com:4000/api'
 
 export const registerRequest = (user) => axios.post(`/register`, user);
 
