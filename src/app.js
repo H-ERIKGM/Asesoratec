@@ -22,6 +22,7 @@ const app = express();
 
 app.use(cors({
     origin: ['https://d2y50145hp55kq.cloudfront.net', 'https://api.asesoratec.click'],
+    methods: [POST, GET, DELETE, PUT],
     credentials: true
 }));
 app.use(morgan('dev'));
