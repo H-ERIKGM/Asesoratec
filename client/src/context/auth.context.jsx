@@ -1,7 +1,7 @@
 import {createContext, useState, useContext, useEffect} from "react";
-import {loginRequest, registerRequest, verityTokenRequest} from '../api/auth';
+import {loginRequest, registerRequest, verifyTokenRequest} from '../api/auth';
 import Cookies from 'js-cookie';
-export const AuthContext = createContext();
+ const AuthContext = createContext();
 
 export const useAuth = () => {
     const context = useContext(AuthContext);
@@ -23,7 +23,7 @@ export const AuthProvider = ({children}) => {
             setUser(res.data);
             setIsAuthenticated(true);
         }catch(error){
-            setErrors(error.response.data)
+            setErrors(error.response?.data || ["An unexpected error occurred during signup."])
         }
     };
 
@@ -36,10 +36,15 @@ export const AuthProvider = ({children}) => {
         if(Array.isArray(error.response.data)){
             return setErrors(error.response.data);
         }
-        setErrors([error.response.data.message])
+        setErrors([error.response?.data?.message || "An unexpected error occurred during signin."])
        }
     }
 
+    const logout = () => {
+        Cookies.remove('token');
+        setIsAuthenticated(false);
+        setUser(null);
+    }
     useEffect(() => {
         if(errors.length > 0){
             const timer = setTimeout(() => {
@@ -58,7 +63,7 @@ export const AuthProvider = ({children}) => {
                 return setUser(null);
             }
             try{
-                const res = await  verityTokenRequest(cookies.token);
+                const res = await  verifyTokenRequest(cookies.token);
                 if(!res.data){
                     setIsAuthenticated(false);
                     setLoading(false);
@@ -70,15 +75,16 @@ export const AuthProvider = ({children}) => {
             }catch(error){
                 setIsAuthenticated(false)
                 setUser(null)
+                setLoading(false)
             }
             
         
         }
         checkLogin();
-    }, [errors])
+    }, [])
 
     return (
-        <AuthContext.Provider value = {{signUp, signIn, loading, user, isAuthenticated, errors}}>
+        <AuthContext.Provider value = {{signUp, signIn, loading, logout,user, isAuthenticated, errors}}>
         {children}
         </AuthContext.Provider>
     )

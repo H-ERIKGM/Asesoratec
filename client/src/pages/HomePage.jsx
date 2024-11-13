@@ -1,6 +1,6 @@
 function HomePage(){
     return (
-        <div>Home Page</div>
+        <div className="text-black text-bold">AsesoraTEC</div>
     )
 }
 
