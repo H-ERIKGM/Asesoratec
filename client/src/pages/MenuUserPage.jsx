@@ -12,7 +12,7 @@ function MenuUserPage() {
     useEffect(() => {
         getRegisters();
     }, []);
-
+    console.log(registers)
     useEffect(() => {
         const now = new Date();
 
