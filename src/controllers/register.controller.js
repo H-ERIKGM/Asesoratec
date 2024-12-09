@@ -29,6 +29,7 @@ export const getRegisters = async (req, res) => {
                 day: register.counseling?.day,
                 status: register.status,
             }));
+            console.log(formattedRegisters)
             res.json(formattedRegisters);
     
         }else if(req.user.role === 'teacher'){

@@ -5,14 +5,14 @@ import { Link } from "react-router-dom";
 import plsImg from "./img/32339.png";
 
 function MenuUserPage() {
-    const { getRegisters, registers } = useRegister();
+    const { getRegisters, registers = [] } = useRegister();
     const [filter, setFilter] = useState("all"); // '48hours', '7days', 'all'
     const [filteredRegisters, setFilteredRegisters] = useState([]);
 
     useEffect(() => {
         getRegisters();
     }, []);
-    console.log(registers)
+    
     useEffect(() => {
         const now = new Date();
 
@@ -32,7 +32,7 @@ function MenuUserPage() {
 
         setFilteredRegisters(filtered);
     }, [filter, registers]);
-
+    console.log(registers)
     return (
         <div className="p-4">
             {/* Línea del Tiempo */}
@@ -80,7 +80,7 @@ function MenuUserPage() {
 
                 {/* Registros en Línea del Tiempo */}
                 <div className="grid grid-cols-3 gap-4">
-                    {filteredRegisters.length > 0 ? (
+                    {Array.isArray(filteredRegisters) && filteredRegisters.length > 0 ? (
                         filteredRegisters.map((registerM) => (
                             <RegisterCardUser registerM = {registerM} key = {registerM.id} />
                         ))
