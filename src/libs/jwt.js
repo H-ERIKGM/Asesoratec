@@ -6,12 +6,9 @@ export function createAccessToken(payload){
         jwt.sign(
             payload,
             TOKEN_SECRET,
-            {
-        
-            },
             (err,  token) => {
                 if(err) reject(err);
                     resolve(token);
             })
-    })
+    });
 }

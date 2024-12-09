@@ -69,3 +69,29 @@ export const updateUserSchema = z.object({
         invalid_type_error: 'Invalid role',
     })   
 })
+
+export const UsersSchema = z.object({
+    name: z.string({
+        required_error: 'Name is required',
+    }),
+    last_name: z.string({
+        required_error: 'Last name is required',
+    }),
+    email: z.string({
+        required_error: 'Email is required',
+    })
+    .email({
+        message: 'Invalid email',
+    }),
+    phone: z.string({
+        required_error: 'Phone is required',
+    }).length(10, {
+        message: "Phone must be 10 characters",
+    }),
+    password: z.string({
+        required_error: 'Password is required',
+    })
+    .min(8, {
+        message: "Password must be at least 8 characters",
+    })
+});

@@ -9,10 +9,6 @@ const registerSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    endDate:{
-        type: Date,
-        required: true,
-    },
     user:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -20,7 +16,7 @@ const registerSchema = new mongoose.Schema({
     },
     counseling:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'counseling',
+        ref: 'Counseling',
         required: true,
     }
 })
