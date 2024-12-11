@@ -47,7 +47,7 @@ export const login = async (req, res) => {
         if(!passMatch) return res.status(400).json({message:"Wrong password"});
         
         const token = await createAccessToken({id: userFound._id, role: userFound.role});
-        
+        console.log('Cookie configurada:', token);
         res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', // Activar en producción
