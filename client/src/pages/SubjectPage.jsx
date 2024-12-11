@@ -8,7 +8,18 @@ function SubjectPage(){
         getSubjects()
     }, []);
 
-    if(subjects.length == 0) return (<h1>No subjects</h1>);
+    if(subjects.length == 0) return (<div className="flex justify-end space-x-4 mb-6">
+        <Link to="/add-subject">
+            <button className="bg-blue-500 px-4 py-2 rounded mt-2 ">
+                Agregar materias
+            </button>
+        </Link>
+        <Link to="/classrooms">
+            <button className="bg-blue-500 px-4 py-2 rounded mt-2 ">
+                Salones
+            </button>
+        </Link>
+    </div>);
 
     return (
         <div>

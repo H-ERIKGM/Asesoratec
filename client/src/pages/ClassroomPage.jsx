@@ -9,7 +9,13 @@ function ClassroomPage(){
         getClassrooms()
     }, [])
 
-    if(classrooms === 0) return (<h1>Sin salones</h1>)
+    if(classrooms === 0) return (<div className="flex justify-end space-x-4 mb-6">
+        <Link to="/add-classroom">
+                        <button className="bg-blue-500 px-4 py-2 rounded mt-2 ">
+                            Agregar salones
+                        </button>
+                    </Link>
+    </div>)
     
     return (
         <div>
