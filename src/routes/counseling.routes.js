@@ -6,6 +6,7 @@ import {
     createCounseling, 
     updateCounseling, 
     deleteCounseling,
+    getTeachers
 } from '../controllers/counseling.controller.js';
 import {validateSchema} from "../middlewares/validator.middleware.js";
 import {createCounselingSchema, updateCounselingSchema} from "../schemas/counseling.schema.js";
@@ -21,5 +22,7 @@ router.post("/counselings", authRequired, validateSchema(createCounselingSchema)
 router.put("/counselings/:id", authRequired, validateSchema(updateCounselingSchema), updateCounseling);
 
 router.delete("/counselings/:id", authRequired, deleteCounseling);
+
+router.get('/teachers', authRequired, getTeachers);
 
 export default router

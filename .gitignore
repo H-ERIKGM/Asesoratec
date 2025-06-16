@@ -1,0 +1,6 @@
+data/
+*.wt
+*.turtle
+*.log
+*.json
+*.temp

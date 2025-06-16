@@ -10,8 +10,7 @@ const subjectSchema = new mongoose.Schema({
         required: true,
     },
     hourFinish:{
-        type: Number,
-        required: true,
+        type: Number
     },
     classroom:{
         type: mongoose.Schema.Types.ObjectId,

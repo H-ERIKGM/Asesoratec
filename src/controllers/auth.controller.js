@@ -1,6 +1,8 @@
 import User from '../models/user.model.js'
 import bcrypt from 'bcryptjs'
 import {createAccessToken} from '../libs/jwt.js';
+import jwt from 'jsonwebtoken'
+import { TOKEN_SECRET } from '../config.js';
 
 export const register = async (req, res) => {
     const {email, password, name, last_name, phone, role} = req.body;
@@ -44,8 +46,8 @@ export const login = async (req, res) => {
 
         if(!passMatch) return res.status(400).json({message:"Wrong password"});
         
-        const token = await createAccessToken({id: userFound._id});
-        res.cookie('token', token)        
+        const token = await createAccessToken({id: userFound._id, role: userFound.role});
+        res.cookie('token', token)
         res.json({
             id: userFound._id,
             name: userFound.name,
@@ -80,9 +82,24 @@ export const profile = async (req, res) => {
     })
 }
 
+export const getUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id).populate('email');
+        if (!user) return res.status(404).json({ message: 'User not found' });
+        res.json(user);
+    } catch (error) {
+       return res.status(500).json({ error: error.message });
+    }
+};
+
 export const getUsers = async (req, res) => {
-    const Users = await User.find({})
-    res.json(Users);
+        try {
+            const users = await User.find(); // Devuelve un arreglo de usuarios
+            res.json(users || []); // Si `users` es null o undefined, envía un arreglo vacío
+        } catch (error) {
+            console.error('Error al obtener usuarios:', error);
+            res.status(500).json({ message: 'Error al obtener usuarios' });
+        }
 };
 
 export const updateUser = async (req, res) => {
@@ -91,4 +108,66 @@ export const updateUser = async (req, res) => {
     })
     if(!user) return res.status(404).json({message: 'Subject not found'})
     res.json(user)
+};
+
+export const verifyToken = async (req, res) => {
+    const {token} = req.cookies
+
+    if(!token) return res.status(401).json({message: "Unauthorized"});
+    
+    jwt.verify(token, TOKEN_SECRET, async (err, user) => {
+        if(err) return res.status(401).json({message: "Unauthorized"});
+
+        const userFound = await User.findById(user.id);
+        if(!userFound) return res.status(401).json({message: "Unauthorized"});
+
+        return res.json({
+            id: userFound._id,
+            email: userFound.email,
+            role: userFound.role,
+        })
+    })
+}
+
+
+export const deleteUser = async (req, res) => {
+    try {
+        const user = await User.findByIdAndDelete(req.params.id);
+        if(!user) return res.status(404).json({message: 'User not found'})
+        return res.sendStatus(204);
+    } catch (error) {
+        return res.status(404).json({message:"User not found"})
+
+    }
+};
+
+export const createUsers = async (req, res) => {
+    const {email, password, name, last_name, phone, role} = req.body;
+    try{
+        const userFound = await User.findOne({email})
+        if(userFound) return res.status(400).json(["The email already in use"]);
+        const passHash = await bcrypt.hash(password, 10);
+
+        const newUser = new User ({
+            name,
+            last_name,
+            email,
+            phone,
+            password: passHash,
+            role,
+        });
+        const userSaved = await newUser.save();
+        const token = await createAccessToken({id:userSaved._id});
+        res.cookie('token', token)        
+        res.json({
+            id: userSaved._id,
+            name: userSaved.name,
+            last_name: userSaved.last_name,
+            email: userSaved.email,
+            phone: userSaved.phone,
+            role: userSaved.role
+        });
+    }catch(error){
+        console.log(error);
+    }
 };
