@@ -5,7 +5,7 @@ import { connectDB } from './db.js';
 
 connectDB();
 
-const httpsOptions = {
+/*const httpsOptions = {
     key: fs.readFileSync('/etc/letsencrypt/live/api.asesoratec.click/privkey.pem'),
     cert: fs.readFileSync('/etc/letsencrypt/live/api.asesoratec.click/fullchain.pem')
 };
@@ -24,4 +24,4 @@ httpApp.use((req, res) => {
 const HTTP_PORT = 80;
 httpApp.listen(HTTP_PORT, () => {
     console.log(`Redirigiendo tráfico HTTP a HTTPS en el puerto ${HTTP_PORT}`);
-});
+});*/
