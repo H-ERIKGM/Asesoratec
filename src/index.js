@@ -4,7 +4,8 @@ import app from './app.js';
 import { connectDB } from './db.js';
 
 connectDB();
-
+const  PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Servidor escuchando en el puerto: ${PORT}`))
 /*const httpsOptions = {
     key: fs.readFileSync('/etc/letsencrypt/live/api.asesoratec.click/privkey.pem'),
     cert: fs.readFileSync('/etc/letsencrypt/live/api.asesoratec.click/fullchain.pem')
