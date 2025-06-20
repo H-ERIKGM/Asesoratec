@@ -20,7 +20,7 @@ const __dirname = dirname(__filename);
 const app = express();
 
 app.use(cors({
-    origin: ['https://asesoratec-1.onrender.com'],
+    origin: 'https://asesoratec-1.onrender.com',
     methods: ['POST', 'GET', 'DELETE', 'PUT'],
     credentials: true
 }));
