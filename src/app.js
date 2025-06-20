@@ -20,7 +20,7 @@ const __dirname = dirname(__filename);
 const app = express();
 
 app.use(cors({
-    origin: ['https://d2y50145hp55kq.cloudfront.net'],
+    origin: ['https://asesoratec-1.onrender.com'],
     methods: ['POST', 'GET', 'DELETE', 'PUT'],
     credentials: true
 }));
