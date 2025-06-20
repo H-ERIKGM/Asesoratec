@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import {HashRouter, Routes, Route} from 'react-router-dom'
 import RegisterPage from './pages/RegisterPage'
 import LoginPage from './pages/LoginPage'
 import { AuthProvider } from './context/auth.context'
@@ -38,7 +38,7 @@ function App(){
             <SubjectProvider>
               <ClassroomProvider>
                 <CounselingProvider>
-                  <BrowserRouter>
+                  <HashRouter>
                   <main className = 'container mx-auto px-10'>
                   <Navbar/>
                     <Routes>
@@ -78,7 +78,7 @@ function App(){
                     
                   </Routes>
                   </main>
-                </BrowserRouter>
+                </HashRouter>
                 </CounselingProvider>
               </ClassroomProvider>
             </SubjectProvider>
