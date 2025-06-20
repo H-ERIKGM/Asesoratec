@@ -36,11 +36,11 @@ app.use("/api", classroomRoutes);
 app.use("/api", registerRoutes);
 
 // Servir el frontend estático
-app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use(express.static(path.join(__dirname, '../../client/dist')));
 
 // Capturar todas las rutas no definidas (React SPA)
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+    res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
 });
 
 export default app;
