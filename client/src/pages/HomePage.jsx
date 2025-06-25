@@ -88,8 +88,8 @@ const HomePage = () => {
             <footer className="bg-gray-800 text-white py-8 rounded-md">
                 <div className="text-center">
                     <p className="mb-2">Contáctanos:</p>
-                    <p className="mb-2">Email: erikyeudiel@hotmail.com</p>
-                    <p className="mb-2">Teléfono: +52 844 463 9263</p>
+                    <p className="mb-2">Email: erikyeudiel@hotmail.com <br /> acostasosaeduardo@gmail.com </p>
+                    <p className="mb-2">Teléfono: +52 844 463 9263 <br />+52 844 392 4145</p>
                     <div className="flex justify-center space-x-4 mt-4">
                         <a href="https://www.facebook.com/its" target="_blank" rel="noopener noreferrer" className="text-blue-400">Facebook</a>
                         <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" className="text-blue-300">Twitter</a>
