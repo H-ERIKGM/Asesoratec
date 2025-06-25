@@ -43,20 +43,35 @@ function HistoricalPage() {
             </tr>
         </thead>
         <tbody>
-            {registers.map((item) => (
-                <tr item = {item} key = {item._id} className="text-center odd:bg-white even:bg-gray-300">
-                    <td className="text-black border border-red-950 px-4 py-2">{item.user.name}</td>
-                    <td className="text-black border border-red-950 px-4 py-2">{item.counseling?.subject?.title}</td>
-                    <td className="text-black border border-red-950 px-4 py-2">{item.counseling?.user?.name} {item.counseling?.user?.last_name}</td>
-                    <td className="text-black border border-red-950 px-4 py-2">{formatDate(item.registerDate)}</td>
-                    <td className="text-black border border-red-950 px-4 py-2">{item.counseling?.hour ? formatHourFromNumber(item.counseling.hour) : "N/A"}</td>
-                    <td className="text-black border border-red-950 px-4 py-2"> {item.counseling.day !== undefined
-                    ? getWeekdayName(item.counseling.day)
-                    : "N/A"}</td>
-                    <td className="text-black border border-red-950 px-4 py-2">{item.status ? "Activo" : "Inactivo"}</td>
+            {registers
+                .filter(item => item.user) // Solo los registros con usuario
+                .map((item) => (
+                <tr key={item._id} className="text-center odd:bg-white even:bg-gray-300">
+                    <td className="text-black border border-red-950 px-4 py-2">
+                    {item.user.name}
+                    </td>
+                    <td className="text-black border border-red-950 px-4 py-2">
+                    {item.counseling?.subject?.title || "Sin materia"}
+                    </td>
+                    <td className="text-black border border-red-950 px-4 py-2">
+                    {(item.counseling?.user?.name || "") + " " + (item.counseling?.user?.last_name || "")}
+                    </td>
+                    <td className="text-black border border-red-950 px-4 py-2">
+                    {formatDate(item.registerDate)}
+                    </td>
+                    <td className="text-black border border-red-950 px-4 py-2">
+                    {item.counseling?.hour ? formatHourFromNumber(item.counseling.hour) : "N/A"}
+                    </td>
+                    <td className="text-black border border-red-950 px-4 py-2">
+                    {item.counseling?.day !== undefined ? getWeekdayName(item.counseling.day) : "N/A"}
+                    </td>
+                    <td className="text-black border border-red-950 px-4 py-2">
+                    {item.status ? "Activo" : "Inactivo"}
+                    </td>
                 </tr>
-            ))}
-        </tbody>
+                ))}
+            </tbody>
+
     </table>
 </div>
   )

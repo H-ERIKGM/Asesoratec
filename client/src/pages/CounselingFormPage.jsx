@@ -132,58 +132,53 @@ function CounselingFormPage() {
                 ))}
 
                 {subjects.map((subject) => (
-                    <React.Fragment key={subject._id}>
-                        {Array.from({ length: (subjectRows[subject._id] || 1) }).map((_, rowIndex) => (
-                            <React.Fragment key={`${subject._id}-${rowIndex}`}>
-                                <div className="text-center border p-2 bg-zinc-500">
-                                    {rowIndex === 0 ? (
-                                        <div className="flex justify-between items-center">
-                                            {subject.title}
-                                            <button
-                                                className="bg-green-500 text-white px-2 py-1 rounded"
-                                                onClick={() => handleAddRow(subject._id)}
-                                            >
-                                                Añadir
-                                            </button>
-                                        </div>
-                                    ) : (
-                                        <span>{subject.title} ({rowIndex + 1})</span>
-                                    )}
-                                </div>
+    <React.Fragment key={subject._id}>
+        {Array.from({ length: (subjectRows[subject._id] || 1) }).map((_, rowIndex) => (
+            <React.Fragment key={`${subject._id}-${rowIndex}`}>
+                <div className="text-center border p-2 bg-zinc-500">
+                    {rowIndex === 0 ? (
+                        <div className="flex justify-between items-center">
+                            {subject.title}
+                            <button
+                                className="bg-green-500 text-white px-2 py-1 rounded"
+                                onClick={() => handleAddRow(subject._id)}
+                            >
+                                Añadir
+                            </button>
+                        </div>
+                    ) : (
+                        <span>{subject.title} ({rowIndex + 1})</span>
+                    )}
+                </div>
 
-                                <DropZone
-                                    key={`${subject._id}-${rowIndex}-teacher`}
-                                    onDrop={(item) => handleDropTeacher(item, subject._id, rowIndex)}
-                                    accept="teacher"
-                                >
-                                    {schedule[`${subject._id}-${rowIndex}`]?.teacher ? (
-                                        <span className="text-white">{schedule[`${subject._id}-${rowIndex}`].teacher.name}</span>
-                                    ) : (
-                                        <span className="text-white">Insertar nombre aquí</span>
-                                    )}
-                                </DropZone>
+                <DropZone
+                    key={`${subject._id}-${rowIndex}-teacher`}
+                    onDrop={(item) => handleDropTeacher(item, subject._id, rowIndex)}
+                    accept="teacher"
+                    content={schedule[`${subject._id}-${rowIndex}`]}
+                />
 
-                                                                        {days.map((day) => (
-                                            <div
-                                                key={`${subject._id}-${rowIndex}-${day}`}
-                                                className="border p-2 bg-zinc-300 text-center"
-                                            >
-                                                <button
-                                                    className={`text-blue-500 underline ${
-                                                        !schedule[`${subject._id}-${rowIndex}`]?.teacher ? "opacity-50 cursor-not-allowed" : ""
-                                                    }`}
-                                                    onClick={() => handleOpenModal(day, subject._id, rowIndex)}
-                                                    disabled={!schedule[`${subject._id}-${rowIndex}`]?.teacher}
-                                                >
-                                                    Seleccionar hora
-                                                </button>
-                                            </div>
-                                        ))}
-
-                            </React.Fragment>
+                {days.map((day) => (
+                    <div
+                        key={`${subject._id}-${rowIndex}-${day}`}
+                        className="border p-2 bg-zinc-300 text-center"
+                    >
+                        <button
+                            className={`text-blue-500 underline ${
+                                !schedule[`${subject._id}-${rowIndex}`]?.teacher ? "opacity-50 cursor-not-allowed" : ""
+                            }`}
+                            onClick={() => handleOpenModal(day, subject._id, rowIndex)}
+                            disabled={!schedule[`${subject._id}-${rowIndex}`]?.teacher}
+                        >
+                            Seleccionar hora
+                        </button>
+                    </div>
+                              ))}
+                             </React.Fragment>
                         ))}
                     </React.Fragment>
                 ))}
+
             </div>
 
             {/* Modal para Seleccionar Horas */}
