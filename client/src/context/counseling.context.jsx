@@ -21,6 +21,7 @@ export function CounselingProvider({ children }) {
         try {
             const res = await getCounselingsRequest();
             setCounselings(res.data);
+            console.log("asesoriasss");
         } catch (error) {
             console.error(error);
         }
@@ -38,6 +39,7 @@ export function CounselingProvider({ children }) {
     const getSubjects = async () => {
         try {
             const res = await getSubjectsRequest(); // Llama al endpoint para obtener subjects
+            console.log("materias");
             setSubjects(res.data);
         } catch (error) {
             console.error("Error fetching subjects:", error);
